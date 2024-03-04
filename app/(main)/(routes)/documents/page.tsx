@@ -1,6 +1,6 @@
 
 export default function DocumentsPage() {
   return (
-    <div>page</div>
+    <div>this is document page</div>
   )
 }
