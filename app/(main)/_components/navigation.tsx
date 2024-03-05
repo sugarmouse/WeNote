@@ -1,11 +1,21 @@
 "use client";
 
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import {
+  ChevronsLeft,
+  MenuIcon,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import UserItem from "./UserItem";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import Item from "./Item";
+import { toast } from "sonner";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -16,6 +26,10 @@ export default function Navigation() {
   const navbarRef = useRef<ElementRef<"div">>(null);
   const [isRestting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
+
+  const documents = useQuery(api.documents.getDocuments);
+
+  const create = useMutation(api.documents.create);
 
   useEffect(() => {
     if (isMobile) {
@@ -104,6 +118,15 @@ export default function Navigation() {
     setTimeout(() => setIsResetting(false), 300);
   };
 
+  const handleCreate = () => {
+    const createPromise = create({ title: "Untitled" });
+    toast.promise(createPromise, {
+      loading: "Creating a new note ...",
+      success: "New note created",
+      error: "Failed to create a new note",
+    });
+  };
+
   return (
     <>
       <aside
@@ -127,10 +150,18 @@ export default function Navigation() {
         </div>
         <div>
           <UserItem />
+          {/* search button */}
+          <Item label="Search" icon={Search} isSearch onClick={() => {}} />
+          {/* settings button */}
+          <Item label="Settings" icon={Settings} onClick={() => {}} />
+          {/* new page button */}
+          <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
         </div>
 
         <div className="mt-4">
-          <p>Documents</p>
+          {documents?.map((document) => (
+            <p key={document._id}>{document.title}</p>
+          ))}
         </div>
 
         {/* sidebar divider */}
