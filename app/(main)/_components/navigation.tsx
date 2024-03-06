@@ -12,10 +12,11 @@ import { useMediaQuery } from "usehooks-ts";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import UserItem from "./UserItem";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Item from "./Item";
 import { toast } from "sonner";
+import DocumentList from "./DocumentList";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -26,8 +27,6 @@ export default function Navigation() {
   const navbarRef = useRef<ElementRef<"div">>(null);
   const [isRestting, setIsResetting] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
-
-  const documents = useQuery(api.documents.getDocuments);
 
   const create = useMutation(api.documents.create);
 
@@ -159,9 +158,8 @@ export default function Navigation() {
         </div>
 
         <div className="mt-4">
-          {documents?.map((document) => (
-            <p key={document._id}>{document.title}</p>
-          ))}
+          {/* documents list */}
+            <DocumentList />
         </div>
 
         {/* sidebar divider */}
