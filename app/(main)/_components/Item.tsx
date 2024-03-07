@@ -153,7 +153,9 @@ export default function Item({
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
-              <div>Last edited by: {user?.fullName}</div>
+              <div className="text-muted-foreground text-sm p-2">
+              Last edited by: {user?.fullName}
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
 

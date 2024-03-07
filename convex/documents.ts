@@ -77,14 +77,16 @@ export const archive = mutation({
     }
 
     /**
-     * Recursively archives the document and its children.
+     * DFS Recursively archives the document and its children.
      */
     const recursiveArchive = async (documentId: Id<'documents'>) => {
+      // find all children page
       const children = await ctx.db
         .query("documents")
         .withIndex("by_user_parent", q => q.eq("userId", userId).eq("parentDocument", documentId))
         .collect();
 
+      // archive all children
       for (const child of children) {
         await ctx.db.patch(child._id, {
           isArchived: true,
@@ -93,6 +95,11 @@ export const archive = mutation({
         await recursiveArchive(child._id);
       }
     };
+
+    // archive the document
+    const document = await ctx.db.patch(args.id, {
+      isArchived: true,
+    });
 
     recursiveArchive(args.id);
 
