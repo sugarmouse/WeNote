@@ -9,5 +9,5 @@ interface Props {
 }
 
 export default function page({params}:Props) {
-  return <div>{params.documentId}</div>;
+  return <div></div>;
 }
