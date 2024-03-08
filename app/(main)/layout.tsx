@@ -4,6 +4,7 @@ import { useConvexAuth } from "convex/react";
 import { Spinner } from "@/components/spinner";
 import { redirect } from "next/navigation";
 import Navigation from "./_components/navigation";
+import SearchCommand from "@/components/searchCommand";
 
 // because this is a real-time app
 
@@ -27,7 +28,10 @@ export default function MainLayout({ children }: NextLayoutProps) {
   return (
     <div className="h-full flex dark:bg-[#1f1f1f]">
       <Navigation></Navigation>
-      <main className="flex-1 h-full overflow-auto">{children}</main>
+      <main className="flex-1 h-full overflow-auto">
+        <SearchCommand />
+        {children}
+        </main>
     </div>
   );
 }

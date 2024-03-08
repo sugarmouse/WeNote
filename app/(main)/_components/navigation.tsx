@@ -21,14 +21,16 @@ import DocumentList from "./DocumentList";
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
-} from "@/components/ui/popover"
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Plus } from "lucide-react";
 import TrashBox from "./TrashBox";
+import { useSearch } from "@/hooks/useSearch";
 
 export default function Navigation() {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const searchPanelControl = useSearch();
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -158,7 +160,12 @@ export default function Navigation() {
         <div>
           <UserItem />
           {/* search button */}
-          <Item label="Search" icon={Search} isSearch onClick={() => {}} />
+          <Item
+            label="Search"
+            icon={Search}
+            isSearch
+            onClick={searchPanelControl.onOpen}
+          />
           {/* settings button */}
           <Item label="Settings" icon={Settings} onClick={() => {}} />
           {/* new page button */}
@@ -168,10 +175,10 @@ export default function Navigation() {
         <div className="mt-4">
           {/* documents list */}
           <DocumentList />
-          <Item onClick={handleCreate} icon={Plus} label="Add a page"/>
+          <Item onClick={handleCreate} icon={Plus} label="Add a page" />
           <Popover>
             <PopoverTrigger className="w-full mt-4">
-              <Item label="trash" icon={Trash}/>
+              <Item label="trash" icon={Trash} />
             </PopoverTrigger>
 
             <PopoverContent
