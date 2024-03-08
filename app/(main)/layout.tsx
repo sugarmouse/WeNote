@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import Navigation from "./_components/navigation";
 import SearchCommand from "@/components/searchCommand";
 
+
 // because this is a real-time app
 
 export default function MainLayout({ children }: NextLayoutProps) {

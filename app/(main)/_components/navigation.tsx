@@ -26,11 +26,13 @@ import {
 import { Plus } from "lucide-react";
 import TrashBox from "./TrashBox";
 import { useSearch } from "@/hooks/useSearch";
+import { useSettings } from "@/hooks/useSettings";
 
 export default function Navigation() {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const searchPanelControl = useSearch();
+  const settingsModalController = useSettings();
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -167,7 +169,11 @@ export default function Navigation() {
             onClick={searchPanelControl.onOpen}
           />
           {/* settings button */}
-          <Item label="Settings" icon={Settings} onClick={() => {}} />
+          <Item
+            label="Settings"
+            icon={Settings}
+            onClick={settingsModalController.onOpen}
+          />
           {/* new page button */}
           <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
         </div>
