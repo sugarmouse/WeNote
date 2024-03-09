@@ -7,6 +7,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { MenuIcon } from "lucide-react";
 import Title from "./Title";
+import Publish from "./Publish";
 
 interface Props {
   isCollapsed: boolean;
@@ -46,6 +47,9 @@ export default function Navbar({ isCollapsed, onResetWidth }: Props) {
         )}
         <div className="flex items-center justify-between w-full">
           <Title initialData={document} />
+          <div className="flex items-center justify-between w-full">
+            <Publish initialData={document} />
+          </div>
         </div>
       </nav>
     </>
