@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 import Navigation from "./_components/navigation";
 import SearchCommand from "@/components/searchCommand";
 
-
 // because this is a real-time app
 
 export default function MainLayout({ children }: NextLayoutProps) {
@@ -28,11 +27,11 @@ export default function MainLayout({ children }: NextLayoutProps) {
 
   return (
     <div className="h-full flex dark:bg-[#1f1f1f]">
-      <Navigation></Navigation>
-      <main className="flex-1 h-full overflow-auto">
+      <Navigation />
+      <main className="flex-1 h-full overflow-y-auto">
         <SearchCommand />
         {children}
-        </main>
+      </main>
     </div>
   );
 }

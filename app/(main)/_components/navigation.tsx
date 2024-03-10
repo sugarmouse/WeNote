@@ -46,9 +46,13 @@ export default function Navigation() {
 
   useEffect(() => {
     if (isMobile) {
+      console.log(`mobile should be true ? -> ${isMobile}`);
       collapse();
     } else {
-      resetWidth();
+      console.log(`mobile should be false ? -> ${isMobile}`);
+      setTimeout(() => {
+        resetWidth();
+      }, 0);
     }
   }, [isMobile]);
 
@@ -98,19 +102,16 @@ export default function Navigation() {
    * Reset the width of the sidebar and navbar elements.
    */
   const resetWidth = () => {
-    const defaultWidth = isMobile ? "100%" : "240px";
     if (sidebarRef.current && navbarRef.current) {
       setIsCollapsed(false);
       setIsResetting(true);
 
-      sidebarRef.current.style.width = defaultWidth;
-      navbarRef.current.style.setProperty("left", defaultWidth);
+      sidebarRef.current.style.width = isMobile ? "100%" : "240px";
       navbarRef.current.style.setProperty(
-        "witdth",
+        "width",
         isMobile ? "0" : "calc(100% - 240px)"
       );
-      // async for animation
-      // transition duration bind with isReseting state
+      navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
       setTimeout(() => setIsResetting(false), 300);
     }
   };
