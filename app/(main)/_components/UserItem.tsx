@@ -1,3 +1,5 @@
+"use client"
+
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { ChevronsLeftRight } from "lucide-react";
 import { useUser, SignOutButton } from "@clerk/clerk-react";
