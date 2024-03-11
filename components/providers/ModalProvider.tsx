@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 
 import SettingsModal from "@/components/modals/SettingsModal";
+import { CoverImageModal } from "@/components/modals/ImageCoverModal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   // prevent hydration error
   useEffect(() => {
-    setIsMounted(true); 
+    setIsMounted(true);
   }, []);
 
   // not render modal on server side
@@ -20,6 +21,7 @@ export const ModalProvider = () => {
   return (
     <>
       <SettingsModal />
+      <CoverImageModal />
     </>
   );
 };

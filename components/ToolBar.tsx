@@ -6,8 +6,9 @@ import { X, Smile, ImageIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import React, { useReducer, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+import { useCoverImage } from "@/hooks/useCoverImage";
 
 interface ToolbarProps {
   initialData: Doc<"documents">;
@@ -63,6 +64,9 @@ export default function Toolbar({ initialData, preview }: ToolbarProps) {
     }
   };
 
+  const coverImage = useCoverImage();
+
+
   return (
     <div className="pl-[54px] group relative">
       {!!initialData.icon && !preview && (
@@ -102,7 +106,7 @@ export default function Toolbar({ initialData, preview }: ToolbarProps) {
 
         {!initialData.coverImage && !preview && (
           <Button
-            onClick={() => {}}
+            onClick={() => coverImage.onOpen()}
             className="text-muted-foreground text-xs"
             variant="outline"
             size="sm"
