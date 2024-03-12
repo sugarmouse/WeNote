@@ -8,6 +8,7 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Props {
   url: string | undefined;
@@ -19,7 +20,7 @@ export default function Cover({ url, preview }: Props) {
   const { edgestore } = useEdgeStore();
   const removeCoverImage = useMutation(api.documents.removeCoverImage);
 
-  const params = useParams()
+  const params = useParams();
 
   const onRemoveCover = async () => {
     // delete from edgestore
@@ -27,9 +28,9 @@ export default function Cover({ url, preview }: Props) {
       await edgestore.publicFiles.delete({ url });
     }
     // delete from db
-   removeCoverImage({
-     id: params.documentId as Id<"documents">
-   })
+    removeCoverImage({
+      id: params.documentId as Id<"documents">,
+    });
   };
 
   return (
@@ -70,3 +71,7 @@ export default function Cover({ url, preview }: Props) {
     </div>
   );
 }
+
+Cover.Skeleton = function CoverSkeleton() {
+  return <Skeleton className="w-full h-[12h]" />;
+};
