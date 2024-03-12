@@ -11,7 +11,7 @@ type CoverImageProps = {
 export const useCoverImage = create<CoverImageProps>((set, get) => ({
   url: undefined,
   isOpen: false,
-  onClose: () => set({ isOpen: false }),
-  onOpen: () => set({ isOpen: true }),
+  onClose: () => set({ isOpen: false, url: undefined }),
+  onOpen: () => set({ isOpen: true, url: undefined }),
   onReplace: (url: string) => set({ isOpen: true, url }),
 }));

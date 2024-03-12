@@ -25,7 +25,7 @@ export const CoverImageModal = () => {
 
     setIsSubmitting(true);
     setFile(file);
-
+    // TODO: record used image to db and reuse the same image in different page 
     // upload img to eadge store
     const res = await edgestore.publicFiles.upload({
       file,
