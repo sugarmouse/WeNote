@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import { Inter } from "next/font/google";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 import { ThemeProvider } from "@/components/providers/themeProvider";
 import { ConvexProvider } from "@/components/providers/convexProvider";
 import { ModalProvider } from "@/components/providers/ModalProvider";
@@ -44,8 +45,10 @@ export default function RootLayout({
             storageKey="WeNote-theme"
           >
             <Toaster position="bottom-center" />
-            <ModalProvider />
-            {children}
+            <EdgeStoreProvider>
+              <ModalProvider />
+              {children}
+            </EdgeStoreProvider>
           </ThemeProvider>
         </ConvexProvider>
       </body>
