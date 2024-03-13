@@ -3,9 +3,10 @@
 import Toolbar from "@/components/ToolBar";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import Cover from "@/components/Cover";
 import { Skeleton } from "@/components/ui/skeleton";
+import Editor from "@/components/Editor";
 
 interface Props {
   params: {
@@ -17,6 +18,15 @@ export default function Page({ params }: Props) {
   const document = useQuery(api.documents.getById, {
     documentId: params.documentId,
   });
+
+  const update = useMutation(api.documents.update);
+
+  const onChange = (content: string) => {
+    update({
+      id: params.documentId,
+      content,
+    });
+  };
 
   if (document === undefined) {
     return (
@@ -43,6 +53,7 @@ export default function Page({ params }: Props) {
       <Cover url={document.coverImage} />
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
         <Toolbar initialData={document} />
+        <Editor initialData={document.content} onChange={onChange} />
       </div>
     </div>
   );
