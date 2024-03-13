@@ -8,14 +8,18 @@ import { toast } from "sonner";
 
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function DocumentsPage() {
   const { user } = useUser();
   const create = useMutation(api.documents.create);
+  const router = useRouter();
 
   const onCreateNote = () => {
     const promise = create({
       title: "Untitle",
+    }).then((documentId) => {
+      router.push(`/documents/${documentId}`);
     });
 
     toast.promise(promise, {

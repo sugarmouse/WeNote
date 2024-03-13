@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import UserItem from "./UserItem";
 import { useMutation } from "convex/react";
@@ -35,6 +35,7 @@ export default function Navigation() {
   const searchPanelControl = useSearch();
   const settingsModalController = useSettings();
   const params = useParams();
+  const router = useRouter();
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -133,7 +134,9 @@ export default function Navigation() {
   };
 
   const handleCreate = () => {
-    const createPromise = create({ title: "Untitled" });
+    const createPromise = create({ title: "Untitled" }).then((documentId) => {
+      router.push(`/documents/${documentId}`);
+    });
     toast.promise(createPromise, {
       loading: "Creating a new note ...",
       success: "New note created",
