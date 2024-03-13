@@ -6,7 +6,9 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import Cover from "@/components/Cover";
 import { Skeleton } from "@/components/ui/skeleton";
-import Editor from "@/components/Editor";
+// import Editor from "@/components/Editor";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
 
 interface Props {
   params: {
@@ -15,6 +17,12 @@ interface Props {
 }
 
 export default function Page({ params }: Props) {
+  const Editor = useMemo(() => {
+    return dynamic(() => import("@/components/Editor"), {
+      ssr: false,
+    });
+  }, []);
+
   const document = useQuery(api.documents.getById, {
     documentId: params.documentId,
   });
