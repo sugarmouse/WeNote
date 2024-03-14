@@ -9,9 +9,10 @@ import { useEdgeStore } from "@/lib/edgestore";
 interface EditorProps {
   initialData: string | undefined;
   onChange: (value: string) => void;
+  editable?: boolean;
 }
 
-export default function Editor({ initialData, onChange }: EditorProps) {
+export default function Editor({ initialData, onChange , editable=true }: EditorProps) {
   const resolvedTheme = useTheme();
   const { edgestore } = useEdgeStore();
 
@@ -28,7 +29,7 @@ export default function Editor({ initialData, onChange }: EditorProps) {
   return (
     <div>
       <BlockNoteView
-        editable
+        editable={editable}
         theme={resolvedTheme?.theme === "dark" ? "dark" : "light"}
         editor={editor}
         onChange={() => onChange(JSON.stringify(editor.document, null, 2))}
